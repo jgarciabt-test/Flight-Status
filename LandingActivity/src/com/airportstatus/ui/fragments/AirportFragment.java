@@ -49,8 +49,10 @@ public class AirportFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				((StickyListHeadersListView)getView().findViewById(R.id.lv_flights)).setAdapter(new FlightAdapter(getActivity(), arrivals, true));
+				FlightAdapter adapter = new FlightAdapter(getActivity(), arrivals, true);
 				
+				((StickyListHeadersListView)getView().findViewById(R.id.lv_flights)).setAdapter(adapter);
+			
 			}
 		});
 		((Button)view.findViewById(R.id.btn_departures)).setOnClickListener(new OnClickListener() {

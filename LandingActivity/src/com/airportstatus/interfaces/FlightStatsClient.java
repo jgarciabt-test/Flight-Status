@@ -7,8 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.location.Location;
+import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.airportstatus.models.CarrierShedules;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -22,7 +24,18 @@ public class FlightStatsClient {
 	public static final String WEATHER_URL = "weather/rest/v1/json/metar/"; // Use METAR type of weather request
 	public static final String FLIGHTS_URL = "flightstatus/rest/v2/json/airport/status/";
 	public static final String LOCATION_URL = "airports/rest/v1/json/withinRadius/";
+	public static final String RATING = "ratings/rest/v1/json/flight/";
 	private static AsyncHttpClient client = new AsyncHttpClient();
+	
+	public static CarrierShedules carrierSchedules = null;
+
+	public static CarrierShedules getCarrierSchedules() {
+		return carrierSchedules;
+	}
+
+	public static void setCarrierSchedules(CarrierShedules carrierSchedules) {
+		FlightStatsClient.carrierSchedules = carrierSchedules;
+	}
 	
 	
 	public static void getWeatherConditions(String code, AsyncHttpResponseHandler handler) {
@@ -121,4 +134,21 @@ public class FlightStatsClient {
 		return BASE_URL + url + code;
 	}
 
+	
+	public static String getDate() {
+		String date = "";
+
+		date = DateFormat.format("dd-MM-yyyy", new java.util.Date()).toString();
+
+		return date;
+	}
+
+	public static String get_apiID() {
+		return appId;
+	}
+
+	public static String get_apiKEY() {
+		return appKey;
+	}
+	
 }

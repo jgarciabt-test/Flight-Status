@@ -5,17 +5,35 @@ package com.airportstatus.ui.adapters;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.airportstatus.R;
 import com.airportstatus.entities.FlightStatus;
+import com.airportstatus.entities.Rating;
+import com.airportstatus.interfaces.FlightStatsClient;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 /**
  * @author pablo
@@ -24,6 +42,7 @@ import com.airportstatus.entities.FlightStatus;
 public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyListHeadersAdapter {
 	private ArrayList<FlightStatus> flights;
 	private boolean arrival;
+	private static int position;
 	public FlightAdapter(Context context, ArrayList<FlightStatus> flights, boolean arrival) {
 		super(context, R.layout.element_flight_status);
 		this.flights = flights;
@@ -52,6 +71,7 @@ public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyL
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
+		this.position = position;
 		if (view == null)
 		{
 			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -96,8 +116,110 @@ public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyL
 		else
 			readable = "";
 		((TextView) view.findViewById(R.id.tv_status)).setText(readable);
+		
+		view.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// custom dialog
+				String fsCode = getItem(FlightAdapter.position).getAirline().getFsCode();
+				String flighNumber = String.valueOf(getItem(FlightAdapter.position).getFlightNumber());
+				
+				RequestQueue rq = Volley.newRequestQueue(getContext());
+				
+				//Create the URL using the keys in FlightStatsClient
+				String url = FlightStatsClient.BASE_URL + FlightStatsClient.RATING + fsCode+"/"+flighNumber + "?appId=" + FlightStatsClient.appId + "&appKey=" + FlightStatsClient.appKey + ""  ;
+
+				//Display the loading dialog before loading
+				final ProgressDialog pDialog = ProgressDialog.show(getContext(), "Loading", "Loading the rating");
+				//Execute the request
+				rq.add(new StringRequest(url, new Listener<String>()
+				{
+
+					@Override
+					public void onResponse(String response)
+					{
+						Rating rate = new Rating();
+						try
+						{
+							//Parse the data (Rate) and put them in a Rating object
+							JSONArray jarr = new JSONObject(response).getJSONArray("airlines");
+							JSONObject jobj;
+							
+							for (int i = 0; i < jarr.length(); i++)
+							{
+								jobj = (JSONObject) jarr.get(i);
+								rate.setLate15(jobj.getString("late15"));
+								rate.setLate30(jobj.getString("late30"));
+								rate.setLate45(jobj.getString("late45"));
+								rate.setCancelled(jobj.getString("cancelled"));
+								rate.setDiverted(jobj.getString("diverted"));
+								
+							}
+
+						} catch (JSONException e)
+						{
+							Log.e("AirlinesFragment","error on parsing the JSON");
+							e.printStackTrace();
+						}
+						
+						//Loading done: hide the loading dialog
+						pDialog.dismiss();
+						shodDialog(rate);
+
+					}
+				}, new ErrorListener()
+				{
+
+					@Override
+					public void onErrorResponse(VolleyError error)
+					{
+						
+					}
+				}));
+				
+				
+			}
+		});
+		
 		return view;
 	}
+	
+	private void shodDialog(Rating rate){
+		
+
+		final Dialog dialog = new Dialog(getContext());
+		dialog.setContentView(R.layout.rate_dialog);
+		dialog.setTitle("Rating");
+
+		// set the custom dialog components - text, image and button
+		TextView late15 = (TextView) dialog.findViewById(R.id.txt_late15);
+		late15.setText(rate.getLate15());
+		
+		TextView late30= (TextView) dialog.findViewById(R.id.txt_late30);
+		late30.setText(rate.getLate30());
+		
+		TextView late45 = (TextView) dialog.findViewById(R.id.txt_late45);
+		late45.setText(rate.getLate45());
+		
+		TextView cancelled = (TextView) dialog.findViewById(R.id.txt_cancelled1);
+		cancelled.setText(rate.getCancelled());
+		
+		TextView diverted = (TextView) dialog.findViewById(R.id.txt_diverted1);
+		diverted.setText(rate.getDiverted());
+
+		Button dialogButton = (Button) dialog.findViewById(R.id.btn_ok);
+		dialogButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+
+		dialog.show();
+		
+	}
+	
 	@Override
 	public View getHeaderView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;

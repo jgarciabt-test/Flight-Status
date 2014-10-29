@@ -55,4 +55,55 @@
 	<string name="location">Airports nearby</string>
 	<string name="no_location">You don\'t have any location provider active.</string>
 	<string name="airports_not_found">No airport found. </string>
+	
+	   <!-- Navigation Drawer Titles !-->
+    
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    
+        <!-- Button Titles !-->
+    
+    <string name="carrierStatus">Flight Status by Carrier</string>
+    <string name="airportStatus">Flight Status by Airport</string>
+    <string name="routeStatus">Flight Status by Route</string>
+    
+    <!-- Activities Titles !-->
+    
+    <string name="titleCarrier">Search Flights by Carrier</string>
+    <string name="titleRoute">Search Flights by Route</string>
+    <string name="titleAirport">Search Flights by Airport</string>
+    
+    <!-- Carrier Strings !-->
+    
+    <string name="carrierType">Carrier/Airline</string>
+    <string name="carrierTypeHint">AA (American Airlines)</string>
+    <string name="carrierFlightNum">Flight Number</string>
+    <string name="carrierFlightNumHint">100</string>
+    <string name="carrierDate">Departure Date</string>
+    <string name="carrierDateHint">DD-MM-YYYY</string>
+    <string name="carrierFlightType">Choose Flight Type</string>
+    
+    <array name="carrierFlightTypeArray">
+        <item>Departing</item>
+        <item>Arriving</item>
+    </array>
+    
+    <string name="carrierSearchBtn">Search</string>
+    <string name="carrierClearBtn">Clear</string>
+    
+    <!-- Route Strings !-->
+    
+    <string name="routeType">Departure</string>
+    <string name="routeFlyghtNum">Arrival</string>
+    <string name="routeDate">Departure Date</string>
+    <string name="routeBtn">Search</string>
+    
+    <!-- Airport Strings !-->
+    
+    <string name="airportType">Airport</string>
+    <string name="airportDate">Departure Date</string>
+    <string name="airportTime">Time Interval</string>
+    <string name="airportCarrierType">Carrier/Airline</string>
+    <string name="airportBtn">Search</string>
+    
 </resources>
