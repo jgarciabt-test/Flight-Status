@@ -15,13 +15,13 @@ import com.loopj.android.http.RequestParams;
 
 public class FlightStatsClient {
 	//curl -v  -X GET "https://api.flightstats.com/flex/weather/rest/v1/json/metar/ABQ?appId=41a9abe4&appKey=de9124c085c33b9b167b1b02e7c42ad2&codeType=IATA"
-	private static final String appId = "dab73acb";
-	private static final String appKey = "c6a876803a6fe7ed2b9f2eccf25415a0";
-	private static final String BASE_URL = "https://api.flightstats.com/flex/";
-	private static final String DELAYS_URL = "delayindex/rest/v1/json/airports/";
-	private static final String WEATHER_URL = "weather/rest/v1/json/metar/"; // Use METAR type of weather request
-	private static final String FLIGHTS_URL = "flightstatus/rest/v2/json/airport/status/";
-	private static final String LOCATION_URL = "airports/rest/v1/json/withinRadius/";
+	public static final String appId = "dab73acb";
+	public static final String appKey = "c6a876803a6fe7ed2b9f2eccf25415a0";
+	public static final String BASE_URL = "https://api.flightstats.com/flex/";
+	public static final String DELAYS_URL = "delayindex/rest/v1/json/airports/";
+	public static final String WEATHER_URL = "weather/rest/v1/json/metar/"; // Use METAR type of weather request
+	public static final String FLIGHTS_URL = "flightstatus/rest/v2/json/airport/status/";
+	public static final String LOCATION_URL = "airports/rest/v1/json/withinRadius/";
 	private static AsyncHttpClient client = new AsyncHttpClient();
 	
 	

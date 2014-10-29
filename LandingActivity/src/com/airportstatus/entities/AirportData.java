@@ -203,7 +203,11 @@ public class AirportData {
 		try
 		{
 			setFsCode(json.getString("fs"));
-			setIataCode(json.getString("iata"));
+			try{
+				setIataCode(json.getString("iata"));
+			} catch(JSONException ex){
+				
+			}
 			try
 			{
 				setIcaoCode(json.getString("icao"));
