@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout android:id="@+id/airport_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    	<TextView android:id="@+id/tv_airport_code"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="#eac411"
+    	    android:text="APC"
+    	    android:textSize="32sp"
+    	    android:textStyle="bold"/>
+    	<TextView android:id="@+id/tv_airport_name"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="#eac411"
+    	    android:text="Airport name"
+    	    android:layout_toRightOf="@id/tv_airport_code"/>
+    	<TextView android:id="@+id/tv_airport_city"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="#eac411"
+    	    android:text="City"
+    	    android:layout_toRightOf="@id/tv_airport_code"
+    	    android:layout_below="@id/tv_airport_name"/>
+    	<TextView android:id="@+id/tv_airport_status"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="#eac411"
+    	    android:text="Status"
+    	    android:layout_toRightOf="@id/tv_airport_code"
+    	    android:layout_below="@id/tv_airport_city"
+    	    android:paddingRight="20dp"/>
+    	<TextView android:id="@+id/tv_airport_weather"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="#eac411"
+    	    android:text="Weather"
+    	    android:layout_toRightOf="@id/tv_airport_status"
+    	    android:layout_below="@id/tv_airport_city"
+    	    android:paddingRight="20dp"/>
+    	<TextView android:id="@+id/tv_airport_temp"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:textColor="#eac411"
+    	    android:text="0"
+    	    android:layout_toRightOf="@id/tv_airport_weather"
+    	    android:layout_below="@id/tv_airport_city"/>  
+    </RelativeLayout>
+    <Button android:id="@+id/btn_arrivals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/arrivals"
+        android:textColor="#eac411"
+        android:drawableLeft="@drawable/arrivals"
+        android:layout_below="@id/airport_header"
+        />
+    <Button android:id="@+id/btn_departures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btn_arrivals"
+        android:text="@string/departures"
+        android:textColor="#eac411"
+        android:drawableLeft="@drawable/departures"
+        android:layout_below="@id/airport_header"
+        />
+    <se.emilsjolander.stickylistheaders.StickyListHeadersListView 
+        android:id="@+id/lv_flights"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_arrivals"/>
+
+</RelativeLayout>
