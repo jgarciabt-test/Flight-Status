@@ -39,26 +39,45 @@ static public void shodDialog(Context context, Rating rate, String title){
 		TextView cancelled = (TextView) dialog.findViewById(R.id.txt_cancelled1);
 		cancelled.setText(rate.getCancelled());
 		
+		//If there is information display it, if not hide everything
+		TextView diverted = (TextView) dialog.findViewById(R.id.txt_diverted1);
 		if(!rate.getDiverted().matches("")){
-			TextView diverted = (TextView) dialog.findViewById(R.id.txt_diverted1);
 			diverted.setText(rate.getDiverted());
+		} else{
+			diverted.setVisibility(View.GONE);
+			TextView diverted2 = (TextView) dialog.findViewById(R.id.txt_diverted);
+			diverted2.setVisibility(View.GONE);
 		}
 		
+		//If there is information display it, if not hide everything
+		TextView delayMin = (TextView) dialog.findViewById(R.id.txt_min_delay_1);
 		if(!rate.getDelayMin().matches("")){
-			TextView delayMin = (TextView) dialog.findViewById(R.id.txt_min_delay_1);
 			delayMin.setText(rate.getDelayMin());
+		} else{
+			TextView delayMin2 = (TextView) dialog.findViewById(R.id.txt_min_delay);
+			delayMin.setVisibility(View.GONE);
+			delayMin2.setVisibility(View.GONE);
 		}
 		
+		//If there is information display it, if not hide everything
+		TextView delayMax = (TextView) dialog.findViewById(R.id.txt_max_delay_1);
 		if(!rate.getDelayMax().matches("")){
-			TextView delayMax = (TextView) dialog.findViewById(R.id.txt_max_delay_1);
 			delayMax.setText(rate.getDelayMax());
+		} else{
+			TextView delayMax2 = (TextView) dialog.findViewById(R.id.txt_max_delay);
+			delayMax.setVisibility(View.GONE);
+			delayMax2.setVisibility(View.GONE);
 		}
 		
+		//If there is information display it, if not hide everything
+		TextView stars = (TextView) dialog.findViewById(R.id.txt_stars1);
 		if(!rate.getOnTimeStars().matches("")){
-			TextView stars = (TextView) dialog.findViewById(R.id.txt_stars1);
 			stars.setText(rate.getOnTimeStars());
+		} else{
+			TextView stars2 = (TextView) dialog.findViewById(R.id.txt_stars);
+			stars.setVisibility(View.GONE);
+			stars2.setVisibility(View.GONE);
 		}
-		
 		
 
 		Button dialogButton = (Button) dialog.findViewById(R.id.btn_ok);
