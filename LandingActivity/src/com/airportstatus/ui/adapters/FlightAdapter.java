@@ -159,14 +159,13 @@ public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyL
 								rate.setOnTimeStars(jobj.getString("allOntimeStars"));
 							}
 
+							pDialog.dismiss();
+							CustomDialog.shodDialog(getContext(), rate, "Flight rating");
 						} catch (JSONException e)
 						{
-							e.printStackTrace();
+							pDialog.dismiss();
+							Toast.makeText(getContext(), "There's not information for this flight", Toast.LENGTH_SHORT).show();
 						}
-						
-						//Loading done: hide the loading dialog
-						pDialog.dismiss();
-						CustomDialog.shodDialog(getContext(), rate, "Flight rating");
 
 					}
 				}, new ErrorListener()
