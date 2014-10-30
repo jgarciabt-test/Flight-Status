@@ -65,7 +65,7 @@ public class ShowFIDS extends Activity {
 	 * RequestParams(); params.put("appId", appId); params.put("appKey",
 	 * appKey); params.put("codeType", "IATA"); return params; }
 	 */
-	// BA, AA, SN, EI
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
