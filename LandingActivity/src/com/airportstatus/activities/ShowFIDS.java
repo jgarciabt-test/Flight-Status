@@ -5,7 +5,6 @@ package com.airportstatus.activities;
  * 
  */
 
-//import android.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,20 +35,14 @@ import com.loopj.android.http.RequestParams;
 //haha
 public class ShowFIDS extends Activity {
 
-	/*
-	 * String[] ac = new String[] { "apple", "orange", "grape" }; String[] fn =
-	 * new String[] { "1", "2", "3" }; String[] status = new String[] { "ok",
-	 * "uhhuh", "nah" }; String[] city = new String[] { "here", "there",
-	 * "anywhere" }; String[] time = new String[] { "now", "later", "never" };
-	 */
+	
 	EditText etAirportCode;
 	EditText etAirlineCode;
 	Button go;
 	String urlAirpC;
 	String urlAirlC;
 
-	// private String airportCode = "boom";
-	// private NetworkTask fidsTask;
+	
 	private static final String BASE_URL = "https://api.flightstats.com/flex/";
 	private static final String FIDS_URL = "fids/rest/v1/json/"; // String
 																	// created
@@ -90,18 +83,9 @@ public class ShowFIDS extends Activity {
 				RequestQueue rq = Volley.newRequestQueue(ShowFIDS.this);
 				urlAirpC = etAirportCode.getText().toString();
 				urlAirlC = etAirlineCode.getText().toString();
-				// Log.i("ET1", urlAirpC);
-				// Log.i("ET2", urlAirlC);
+				
 				final String url = getURL(urlAirpC, urlAirlC);
-				// Log.i("FIDS", url);
-				// JsonObjectRequest jor = new JsonObjectRequest(url,
-				// jsonRequest,
-				// listener, errorListener)
-
-				// final ProgressDialog pDialog =
-				// ProgressDialog.show(getBaseContext(),
-				// "Loading", "Loading the rating");
-				// Execute the request
+				
 				rq.add(new StringRequest(url, new Listener<String>() {
 
 					@Override
@@ -226,12 +210,7 @@ public class ShowFIDS extends Activity {
 				+ "&useRunwayTimes=" + "false" + "&excludeCargoOnlyFlights="
 				+ "false"; // + + lateMinute+"&score=3";
 
-		// fidsRequestParams.put("requestedFields",
-		// "airlineCode,flightNumber,city,currentTime,gate,remarks");
-		// fidsRequestParams.put("includeAirlines", "BA");
-		// fidsRequestParams.put("lateMinutes", "15");
-		// fidsRequestParams.put("useRunwayTimes", "false");
-		// fidsRequestParams.put("excludeCargoOnlyFlights", "false");
+		
 	}
 
 }
