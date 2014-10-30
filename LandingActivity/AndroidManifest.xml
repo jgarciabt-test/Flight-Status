@@ -34,6 +34,8 @@
             android:name="com.airportstatus.activities.SecurityWaitTimeActivity"
             android:label="@string/title_activity_security_wait_time" >
         </activity>
+        <activity 
+            android:name="com.airportstatus.activities.ShowFIDS"/>
         <activity
             android:name="com.airportstatus.activities.StatusListActivity"
             android:label="@string/title_activity_status_list" >

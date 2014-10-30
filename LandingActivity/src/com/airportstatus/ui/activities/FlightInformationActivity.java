@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -32,6 +33,7 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.airportstatus.R;
+import com.airportstatus.activities.ShowFIDS;
 import com.airportstatus.entities.AirportData;
 import com.airportstatus.fragments.AirlinesFragment;
 import com.airportstatus.fragments.ScheduleFragment;
@@ -69,7 +71,7 @@ public class FlightInformationActivity extends Activity {
 		drawerListView = (ListView) findViewById(R.id.left_drawer);
 
 		String[] values = new String[] { "Airline Names", "Airport Status",
-				"Schedule Status" };
+				"Schedule Status" , "FIDS"};
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, values);
@@ -131,6 +133,9 @@ public class FlightInformationActivity extends Activity {
 				else if (itemValue.equals("Airport Status")) {
 
 					airportStatus();
+				} else if (itemValue.equals("FIDS")){
+					Intent i = new Intent(FlightInformationActivity.this, ShowFIDS.class);
+					startActivity(i);
 				}
 
 				drawerLayout.closeDrawers();
