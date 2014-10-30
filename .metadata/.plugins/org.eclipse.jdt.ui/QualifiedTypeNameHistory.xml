@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.json.JSONException"/>
+<fullyQualifiedTypeName name="android.location.GpsStatus.Listener"/>
+<fullyQualifiedTypeName name="android.app.ListFragment"/>
+<fullyQualifiedTypeName name="com.android.volley.Response.Listener"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.airportstatus.R"/>
+<fullyQualifiedTypeName name="se.emilsjolander.stickylistheaders.StickyListHeadersListView"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.airportstatus.interfaces.FlightStatsClient"/>
+<fullyQualifiedTypeName name="com.airportstatus.ui.adapters.FlightAdapter"/>
+<fullyQualifiedTypeName name="com.airportstatus.entities.Rating"/>
+<fullyQualifiedTypeName name="android.text.format.DateFormat"/>
 </qualifiedTypeNameHistroy>

@@ -2,11 +2,16 @@ package com.airportstatus.entities;
 
 public class Rating {
 
-	private String late15;
-	private String late30;
-	private String late45;
-	private String cancelled;
-	private String diverted;
+	private String observations = "";
+	private String onTime = "";
+	private String late15 = "";
+	private String late30 = "";
+	private String late45 = "";
+	private String cancelled = "";
+	private String diverted = "";
+	private String delayMin = "";
+	private String delayMax = "";
+	private String onTimeStars = "";
 	
 	public Rating(){
 		
@@ -52,6 +57,45 @@ public class Rating {
 		this.diverted = diverted;
 	}
 	
+	public String getObservations() {
+		return observations;
+	}
+
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+
+	public String getOnTime() {
+		return onTime;
+	}
+
+	public void setOnTime(String onTime) {
+		this.onTime = onTime;
+	}
+
+	public String getDelayMin() {
+		return delayMin;
+	}
+
+	public void setDelayMin(String delayMin) {
+		this.delayMin = delayMin;
+	}
+
+	public String getDelayMax() {
+		return delayMax;
+	}
+
+	public void setDelayMax(String delayMax) {
+		this.delayMax = delayMax;
+	}
+
+	public String getOnTimeStars() {
+		return onTimeStars;
+	}
+
+	public void setOnTimeStars(String onTimeStars) {
+		this.onTimeStars = onTimeStars;
+	}
 	
 	
 }

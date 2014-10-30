@@ -17,8 +17,8 @@ import com.loopj.android.http.RequestParams;
 
 public class FlightStatsClient {
 	//curl -v  -X GET "https://api.flightstats.com/flex/weather/rest/v1/json/metar/ABQ?appId=41a9abe4&appKey=de9124c085c33b9b167b1b02e7c42ad2&codeType=IATA"
-	public static final String appId = "dab73acb";
-	public static final String appKey = "c6a876803a6fe7ed2b9f2eccf25415a0";
+	public static final String appId = "4aec51a2";
+	public static final String appKey = "67402753a0459662ec40ebd202650fa9";
 	public static final String BASE_URL = "https://api.flightstats.com/flex/";
 	public static final String DELAYS_URL = "delayindex/rest/v1/json/airports/";
 	public static final String WEATHER_URL = "weather/rest/v1/json/metar/"; // Use METAR type of weather request

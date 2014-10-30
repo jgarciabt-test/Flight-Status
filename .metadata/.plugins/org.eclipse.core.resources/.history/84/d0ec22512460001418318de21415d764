@@ -1,0 +1,5 @@
+package com.airportstatus.fragments;
+
+public class CustomDialog {
+
+}

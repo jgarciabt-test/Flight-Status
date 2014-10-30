@@ -5,33 +5,31 @@ package com.airportstatus.ui.adapters;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airportstatus.R;
 import com.airportstatus.entities.FlightStatus;
 import com.airportstatus.entities.Rating;
+import com.airportstatus.fragments.CustomDialog;
 import com.airportstatus.interfaces.FlightStatsClient;
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -149,23 +147,26 @@ public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyL
 							for (int i = 0; i < jarr.length(); i++)
 							{
 								jobj = (JSONObject) jarr.get(i);
+								rate.setObservations(jobj.getString("observations"));
+								rate.setOnTime(jobj.getString("ontime"));
 								rate.setLate15(jobj.getString("late15"));
 								rate.setLate30(jobj.getString("late30"));
 								rate.setLate45(jobj.getString("late45"));
+								rate.setDelayMin(jobj.getString("delayMin"));
+								rate.setDelayMax(jobj.getString("delayMax"));
 								rate.setCancelled(jobj.getString("cancelled"));
 								rate.setDiverted(jobj.getString("diverted"));
-								
+								rate.setOnTimeStars(jobj.getString("allOntimeStars"));
 							}
 
 						} catch (JSONException e)
 						{
-							Log.e("AirlinesFragment","error on parsing the JSON");
 							e.printStackTrace();
 						}
 						
 						//Loading done: hide the loading dialog
 						pDialog.dismiss();
-						shodDialog(rate);
+						CustomDialog.shodDialog(getContext(), rate, "Flight rating");
 
 					}
 				}, new ErrorListener()
@@ -174,7 +175,8 @@ public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyL
 					@Override
 					public void onErrorResponse(VolleyError error)
 					{
-						
+						pDialog.dismiss();
+						Toast.makeText(getContext(), "There was an error trying to get the rating info.", Toast.LENGTH_SHORT).show();
 					}
 				}));
 				
@@ -183,41 +185,6 @@ public class FlightAdapter extends ArrayAdapter<FlightStatus> implements StickyL
 		});
 		
 		return view;
-	}
-	
-	private void shodDialog(Rating rate){
-		
-
-		final Dialog dialog = new Dialog(getContext());
-		dialog.setContentView(R.layout.rate_dialog);
-		dialog.setTitle("Rating");
-
-		// set the custom dialog components - text, image and button
-		TextView late15 = (TextView) dialog.findViewById(R.id.txt_late15);
-		late15.setText(rate.getLate15());
-		
-		TextView late30= (TextView) dialog.findViewById(R.id.txt_late30);
-		late30.setText(rate.getLate30());
-		
-		TextView late45 = (TextView) dialog.findViewById(R.id.txt_late45);
-		late45.setText(rate.getLate45());
-		
-		TextView cancelled = (TextView) dialog.findViewById(R.id.txt_cancelled1);
-		cancelled.setText(rate.getCancelled());
-		
-		TextView diverted = (TextView) dialog.findViewById(R.id.txt_diverted1);
-		diverted.setText(rate.getDiverted());
-
-		Button dialogButton = (Button) dialog.findViewById(R.id.btn_ok);
-		dialogButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-
-		dialog.show();
-		
 	}
 	
 	@Override
