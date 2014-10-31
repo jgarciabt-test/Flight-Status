@@ -1,5 +1,6 @@
 package com.airportstatus.interfaces;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.airportstatus.models.CarrierShedules;
+import com.airportstatus.models.ScheduleRouteModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -28,6 +30,16 @@ public class FlightStatsClient {
 	private static AsyncHttpClient client = new AsyncHttpClient();
 	
 	public static CarrierShedules carrierSchedules = null;
+	public static ArrayList<ScheduleRouteModel> routeScheduleList = null;
+
+	public static ArrayList<ScheduleRouteModel> getRouteScheduleList() {
+		return routeScheduleList;
+	}
+
+	public static void setRouteScheduleList(
+			ArrayList<ScheduleRouteModel> routeScheduleList) {
+		FlightStatsClient.routeScheduleList = routeScheduleList;
+	}
 
 	public static CarrierShedules getCarrierSchedules() {
 		return carrierSchedules;

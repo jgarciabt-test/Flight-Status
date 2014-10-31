@@ -21,7 +21,7 @@ public class ViewCarrierScheduledFlightsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		parentView = inflater.inflate(R.layout.fragment_schedule_carrier,
+		parentView = inflater.inflate(R.layout.fragment_schedule_display_carrier,
 				container, false);
 
 		this.carrierSchedule = FlightStatsClient.getCarrierSchedules();

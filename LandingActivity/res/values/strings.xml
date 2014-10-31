@@ -39,42 +39,42 @@
     <string name="txtLoadingAirports">Finding Nearby Airports</string>
     <string name="txtRefresh">Refresh</string>
     <string name="txtRefreshing">Refreshing&#8230;</string>
-	<string name="arrivals">Arrivals</string>
-	<string name="departures">Departures</string>
-	<string name="active">Active</string>
-	<string name="cancel">Cancelled</string>
-	<string name="diverted">Diverted</string>
-	<string name="datasource_needed">Datasource needed</string>
-	<string name="landed">Landed</string>
-	<string name="not_operational">Not operational</string>
-	<string name="redirected">Redirected</string>
-	<string name="scheduled">Scheduled</string>
-	<string name="unknown">Unknown</string>
-	<string name="refresh">Refresh</string>
-	<string name="search">Search City</string>
-	<string name="location">Airports nearby</string>
-	<string name="no_location">You don\'t have any location provider active.</string>
-	<string name="airports_not_found">No airport found. </string>
-	
-	   <!-- Navigation Drawer Titles !-->
-    
+    <string name="arrivals">Arrivals</string>
+    <string name="departures">Departures</string>
+    <string name="active">Active</string>
+    <string name="cancel">Cancelled</string>
+    <string name="diverted">Diverted</string>
+    <string name="datasource_needed">Datasource needed</string>
+    <string name="landed">Landed</string>
+    <string name="not_operational">Not operational</string>
+    <string name="redirected">Redirected</string>
+    <string name="scheduled">Scheduled</string>
+    <string name="unknown">Unknown</string>
+    <string name="refresh">Refresh</string>
+    <string name="search">Search City</string>
+    <string name="location">Airports nearby</string>
+    <string name="no_location">You don\'t have any location provider active.</string>
+    <string name="airports_not_found">No airport found. </string>
+
+    <!-- Navigation Drawer Titles ! -->
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    
-        <!-- Button Titles !-->
-    
+
+    <!-- Button Titles ! -->
+
     <string name="carrierStatus">Flight Status by Carrier</string>
     <string name="airportStatus">Flight Status by Airport</string>
     <string name="routeStatus">Flight Status by Route</string>
-    
-    <!-- Activities Titles !-->
-    
+
+    <!-- Activities Titles ! -->
+
     <string name="titleCarrier">Search Flights by Carrier</string>
     <string name="titleRoute">Search Flights by Route</string>
     <string name="titleAirport">Search Flights by Airport</string>
-    
-    <!-- Carrier Strings !-->
-    
+
+    <!-- Carrier Strings ! -->
+
     <string name="carrierType">Carrier/Airline</string>
     <string name="carrierTypeHint">AA (American Airlines)</string>
     <string name="carrierFlightNum">Flight Number</string>
@@ -82,28 +82,68 @@
     <string name="carrierDate">Departure Date</string>
     <string name="carrierDateHint">DD-MM-YYYY</string>
     <string name="carrierFlightType">Choose Flight Type</string>
-    
-    <array name="carrierFlightTypeArray">
+
+    <array name="FlightTypeArray">
         <item>Departing</item>
         <item>Arriving</item>
     </array>
-    
-    <string name="carrierSearchBtn">Search</string>
-    <string name="carrierClearBtn">Clear</string>
-    
-    <!-- Route Strings !-->
-    
-    <string name="routeType">Departure</string>
-    <string name="routeFlyghtNum">Arrival</string>
+
+    <string name="SearchBtn">Search</string>
+    <string name="ClearBtn">Clear</string>
+
+    <!-- Route Strings ! -->
+
+    <string name="routeDeparture">Departure Airport Code</string>
+    <string name="routeDepartureHint">ABQ</string>
+    <string name="routeArrival">Arrival Airport Code</string>
+    <string name="routeArrivalHint">DFW</string>
     <string name="routeDate">Departure Date</string>
-    <string name="routeBtn">Search</string>
-    
-    <!-- Airport Strings !-->
-    
-    <string name="airportType">Airport</string>
-    <string name="airportDate">Departure Date</string>
+    <string name="routeDateHint">DD-MM-YYYY</string>
+    <string name="routeViewFsCode">Carrier FS Code: </string>
+    <string name="routeViewFlightNumber">Flight Number: </string>
+    <string name="routeViewDepartureAirportFsCode">Departure Airport Fs Code: </string>
+    <string name="routeViewArrivalAirportFsCode">Arrival Airport Fs Code: </string>
+    <string name="routeViewNumStops">Number of Stops: </string>
+    <string name="routeViewDeptTime">Departure Time: </string>
+    <string name="routeViewArrTime">Arrival Time: </string>
+    <string name="routeViewFlightEqIata">Flight Equipment Iata Code: </string>
+    <string name="routeViewIsCodeShare">Is Code Share: </string>
+    <string name="routeViewIsWetlease">Is Wet Lease: </string>
+    <string name="routeViewServiceType">Service Type: </string>
+    <string name="routeViewReferenceCode">Reference Code: </string>
+
+    <!-- Airport Strings ! -->
+
+    <string name="airportType">Airport Code</string>
+    <string name="airportTypeHint">ABQ</string>
+    <string name="airportDate">Date</string>
+    <string name="airportDateHint">DD-MM-YYYY</string>
     <string name="airportTime">Time Interval</string>
-    <string name="airportCarrierType">Carrier/Airline</string>
-    <string name="airportBtn">Search</string>
-    
+
+    <array name="airportTimeArray">
+        <item>00:00 - 01:00</item>
+        <item>01:00 - 02:00</item>
+        <item>02:00 - 03:00</item>
+        <item>03:00 - 04:00</item>
+        <item>04:00 - 05:00</item>
+        <item>05:00 - 06:00</item>
+        <item>07:00 - 08:00</item>
+        <item>08:00 - 09:00</item>
+        <item>09:00 - 10:00</item>
+        <item>10:00 - 11:00</item>
+        <item>11:00 - 12:00</item>
+        <item>12:00 - 13:00</item>
+        <item>13:00 - 14:00</item>
+        <item>14:00 - 15:00</item>
+        <item>15:00 - 16:00</item>
+        <item>16:00 - 17:00</item>
+        <item>17:00 - 18:00</item>
+        <item>18:00 - 19:00</item>
+        <item>19:00 - 20:00</item>
+        <item>20:00 - 21:00</item>
+        <item>21:00 - 22:00</item>
+        <item>22:00 - 23:00</item>
+        <item>23:00 - 00:00</item>
+    </array>
+
 </resources>

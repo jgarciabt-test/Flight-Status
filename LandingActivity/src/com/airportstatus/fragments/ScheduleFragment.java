@@ -23,8 +23,10 @@ public class ScheduleFragment extends Fragment {
 				container, false);
 
 		searchByCarrier = (Button) parentView.findViewById(R.id.flightCarrier);
-		searchByAirport = (Button) parentView.findViewById(R.id.flightAirport);
+
 		searchByRoute = (Button) parentView.findViewById(R.id.flightRoute);
+
+		searchByAirport = (Button) parentView.findViewById(R.id.flightAirport);
 
 		searchByCarrier.setOnClickListener(new OnClickListener() {
 			@Override
@@ -35,6 +37,30 @@ public class ScheduleFragment extends Fragment {
 						.beginTransaction()
 						.replace(R.id.flight_information_layout,
 								scheduleCarrierFragment).commit();
+			}
+		});
+
+		searchByRoute.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				ScheduledFlightsByRouteFragment scheduleRouteFragment = new ScheduledFlightsByRouteFragment();
+
+				getFragmentManager()
+						.beginTransaction()
+						.replace(R.id.flight_information_layout,
+								scheduleRouteFragment).commit();
+			}
+		});
+
+		searchByAirport.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				ScheduledFlightsByAirportFragment scheduleAirportFragment = new ScheduledFlightsByAirportFragment();
+
+				getFragmentManager()
+						.beginTransaction()
+						.replace(R.id.flight_information_layout,
+								scheduleAirportFragment).commit();
 			}
 		});
 

@@ -19,20 +19,20 @@
             android:text="@string/carrierStatus" />
 
         <Button
-            android:id="@+id/flightAirport"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="#eac411"
-            android:text="@string/airportStatus" />
-
-        <Button
             android:id="@+id/flightRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:background="#eac411"
             android:text="@string/routeStatus" />
+
+        <Button
+            android:id="@+id/flightAirport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="#eac411"
+            android:text="@string/airportStatus" />
     </LinearLayout>
 
 </RelativeLayout>
