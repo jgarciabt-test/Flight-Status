@@ -1,92 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/tvLabelAC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="34dp"
-        android:text="Airline Code" />
+    android:layout_height="wrap_content"
+    android:background="#000000"
+    android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/tvFIDSAC"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="66dp"
-        android:layout_toRightOf="@+id/tvLabelAC"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/tvLabelFN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabelAC"
-        android:layout_below="@+id/tvLabelAC"
-        android:text="FlightNumber" />
+        android:layout_weight="1"
+        android:text="Airline Code"
+        android:textColor="#e1bd17"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvFIDSFN"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvLabelFN"
-        android:layout_alignBottom="@+id/tvLabelFN"
-        android:layout_alignLeft="@+id/tvFIDSAC"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/tvLabelStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabelFN"
-        android:layout_below="@+id/tvLabelFN"
-        android:text="Stats" />
+        android:layout_weight="1"
+        android:text="Flight N."
+        android:textAlignment="viewEnd"
+        android:textColor="#e1bd17"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvFIDSStatus"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvLabelStatus"
-        android:layout_alignBottom="@+id/tvLabelStatus"
-        android:layout_alignLeft="@+id/tvFIDSFN"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/tvLabelCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabelStatus"
-        android:layout_below="@+id/tvLabelStatus"
-        android:text="City" />
+        android:layout_weight="2"
+        android:text="Status"
+        android:textColor="#e1bd17"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvFIDSCity"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvFIDSStatus"
-        android:layout_below="@+id/tvFIDSStatus"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/tvLabelTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvLabelCity"
-        android:layout_below="@+id/tvLabelCity"
-        android:text="Time" />
+        android:layout_weight="2"
+        android:text="City"
+        android:textColor="#e1bd17"
+        android:textSize="11sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvFIDSTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvLabelTime"
-        android:layout_alignBottom="@+id/tvLabelTime"
-        android:layout_alignLeft="@+id/tvFIDSCity"
-        android:text="TextView" />
-    
-</RelativeLayout>
+        android:layout_weight="2"
+        android:text="Current Time"
+        android:textAlignment="center"
+        android:textColor="#e1bd17"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

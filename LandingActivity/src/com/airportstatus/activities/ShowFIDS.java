@@ -12,27 +12,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Handler.Callback;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.airportstatus.R;
+import com.airportstatus.adapters.FIDSAdapter;
 import com.airportstatus.entities.Airline;
 import com.airportstatus.entities.AirportData;
-import com.airportstatus.helpers.NetworkTask;
+import com.airportstatus.entities.FIDS;
 import com.airportstatus.models.Airlines;
 import com.airportstatus.models.Airports;
 import com.android.volley.RequestQueue;
@@ -41,18 +42,17 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.RequestParams;
-//haha
-public class ShowFIDS extends Activity {
 
-	
+//haha
+public class ShowFIDS extends Activity
+{
+
 	AutoCompleteTextView etAirportCode;
 	AutoCompleteTextView etAirlineCode;
 	Button go;
 	String urlAirpC;
 	String urlAirlC;
 
-	
 	private static final String BASE_URL = "https://api.flightstats.com/flex/";
 	private static final String FIDS_URL = "fids/rest/v1/json/"; // String
 																	// created
@@ -61,6 +61,8 @@ public class ShowFIDS extends Activity {
 	private static final String appKey = "c6a876803a6fe7ed2b9f2eccf25415a0";
 
 	ArrayList<HashMap<String, String>> fidsList;
+	ArrayList<FIDS> fidsObjList;
+	FIDSAdapter adapter;
 	JSONArray fids = null;
 
 	/*
@@ -68,74 +70,77 @@ public class ShowFIDS extends Activity {
 	 * RequestParams(); params.put("appId", appId); params.put("appKey",
 	 * appKey); params.put("codeType", "IATA"); return params; }
 	 */
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.fids_show);
 		setContentView(R.layout.fids_show);
-		
-		//Define the AC_TV
+
+		fidsObjList = new ArrayList<FIDS>();
+
+		// Define the AC_TV
 		etAirportCode = (AutoCompleteTextView) findViewById(R.id.etAirportCode);
 		etAirlineCode = (AutoCompleteTextView) findViewById(R.id.etAirlineCode);
-		
+
 		final ProgressDialog dialog = ProgressDialog.show(ShowFIDS.this, "Loading", "Loading the airports");
-		
-		
-		//Load the airports
+
+		// Load the airports
 		Airports.getAirportDatas(getApplicationContext(), new Handler(new Callback()
 		{
-			
-			//On Airports received
+
+			// On Airports received
 			@Override
 			public boolean handleMessage(Message msg)
 			{
 				ArrayList<AirportData> al = (ArrayList<AirportData>) msg.obj;
-				//Create the String array to display in the listView
+				// Create the String array to display in the listView
 				String[] values = new String[al.size()];
 				for (int i = 0; i < values.length; i++)
 				{
 					values[i] = al.get(i).getName() + " - " + al.get(i).getIcaoCode();
 				}
-				//Dismiss the dialog after loading
+				// Dismiss the dialog after loading
 				dialog.dismiss();
-				
+
 				// Set the list view
 				etAirportCode.setAdapter(new ArrayAdapter<String>(ShowFIDS.this, com.airportstatus.R.layout.single_row_bigger, values));
-				
+
 				final ProgressDialog dialog2 = ProgressDialog.show(ShowFIDS.this, "Loading", "Loading the airlines");
-				
-				//Load the airlines
+
+				// Load the airlines
 				Airlines.getAirlines(ShowFIDS.this, new Handler(new Callback()
 				{
-					
-					//On Airlines received
+
+					// On Airlines received
 					@Override
 					public boolean handleMessage(Message msg)
 					{
 
 						ArrayList<Airline> al = (ArrayList<Airline>) msg.obj;
-						//Create the String array to display in the listView
+						// Create the String array to display in the listView
 						String[] airlines = new String[al.size()];
 						for (int i = 0; i < airlines.length; i++)
 						{
 							airlines[i] = al.get(i).getName() + " - " + al.get(i).getIcaoCode();
 						}
-						//Dismiss the dialog after loading
+						// Dismiss the dialog after loading
 						dialog2.dismiss();
-						
+
 						// Set the list view
-						etAirlineCode.setAdapter(new ArrayAdapter<String>(ShowFIDS.this, com.airportstatus.R.layout.single_row_bigger, airlines));
-						
+						etAirlineCode.setAdapter(new ArrayAdapter<String>(ShowFIDS.this,
+								com.airportstatus.R.layout.single_row_bigger,
+								airlines));
+
 						return true;
 					}
 				}));
 				return true;
 			}
 		}));
-		
-	
+
 		go = (Button) findViewById(R.id.btnGo);
 
 		fidsList = new ArrayList<HashMap<String, String>>();
@@ -143,131 +148,134 @@ public class ShowFIDS extends Activity {
 		/**
 		 * Button click to start the process of fetching information
 		 */
-		go.setOnClickListener(new OnClickListener() {
+		go.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				// TODO Auto-generated method stub
 				RequestQueue rq = Volley.newRequestQueue(ShowFIDS.this);
 				urlAirpC = etAirportCode.getText().toString();
 				urlAirlC = etAirlineCode.getText().toString();
-				
-				// < 4 because " - ".length() + 1 
-				if(urlAirlC.length() < 4 || urlAirpC.length() < 4)
+
+				// < 4 because " - ".length() + 1
+				if (urlAirlC.length() < 4 || urlAirpC.length() < 4)
 				{
 					Toast.makeText(getApplicationContext(), "Invalid airport or airline name", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				urlAirpC = urlAirpC.substring(urlAirpC.indexOf(" - ")+ 3);
-				urlAirlC = urlAirlC.substring(urlAirlC.indexOf(" - ")+ 3);
+				urlAirpC = urlAirpC.substring(urlAirpC.indexOf(" - ") + 3);
+				urlAirlC = urlAirlC.substring(urlAirlC.indexOf(" - ") + 3);
 				Log.d("test", urlAirlC + " & " + urlAirpC);
-				
-				//if the codes are not correct
-				if(!urlAirlC.matches("^[A-Z]+$") || !urlAirpC.matches("^[A-Z]+$"))
+
+				// if the codes are not correct
+				if (!urlAirlC.matches("^[A-Z]+$") || !urlAirpC.matches("^[A-Z]+$"))
 				{
 					Toast.makeText(getApplicationContext(), "Invalid airport or airline name", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				final String url = getURL(urlAirpC, urlAirlC);
-				
-				rq.add(new StringRequest(url, new Listener<String>() {
+
+				rq.add(new StringRequest(url, new Listener<String>()
+				{
 
 					@Override
-					public void onResponse(String response) {
+					public void onResponse(String response)
+					{
 						Log.d("Response", response);
 
-						if (response != null) {
+						if (response != null)
+						{
 							new getFlights().execute(response);
-						} else {
+						} else
+						{
 							Log.i("NAHWORK", "couldnt get data");
 						}
 
 					}
-				}, new ErrorListener() {
+				}, new ErrorListener()
+				{
 
 					@Override
-					public void onErrorResponse(VolleyError error) {
+					public void onErrorResponse(VolleyError error)
+					{
 						// TODO
 						// Handle your error
 						Toast.makeText(getApplicationContext(), "HTTP Error", Toast.LENGTH_SHORT).show();
-						
+
 					}
 				}));
 
 			}
 		});
 
-		/*
-		 * ArrayList<HashMap<String,String>> fidders = new
-		 * ArrayList<HashMap<String,String>>();
-		 * 
-		 * for (int i= 0; i < 3 ; i++) { HashMap<String,String> putter = new
-		 * HashMap<String,String>(); putter.put("ac", ac[i]); putter.put("fn",
-		 * fn[i]); putter.put("status", status[i]); putter.put("city", city[i]);
-		 * putter.put("time", time[i]); fidders.add(putter); }
-		 */
-
 		String[] from = { "ac", "fn", "status", "city", "time" };
 
-		int[] to = { R.id.tvFIDSAC, R.id.tvFIDSFN, R.id.tvFIDSStatus,
-				R.id.tvFIDSCity, R.id.tvFIDSTime };
+		int[] to = { R.id.tvFIDSAC, R.id.tvFIDSFN, R.id.tvFIDSStatus, R.id.tvFIDSCity, R.id.tvFIDSTime };
 
-		SimpleAdapter adapter = new SimpleAdapter(getBaseContext(), fidsList,
-				R.layout.fids_layout, from, to);
+		this.adapter = new FIDSAdapter(getApplicationContext(), fidsObjList);
 
-		ListView lview = (ListView) findViewById(R.id.lvFIDS);
-		lview.setAdapter(adapter);
+		StickyListHeadersListView stickyList = (StickyListHeadersListView) findViewById(R.id.lvFIDS);
+		adapter = new FIDSAdapter(getBaseContext(), fidsObjList);
+		stickyList.setAdapter(adapter);
 
 	}
 
 	/**
 	 * Does the JSON Parsing on another thread
 	 */
-	public class getFlights extends AsyncTask<String, Void, Void> {
+	public class getFlights extends AsyncTask<String, Void, Void>
+	{
 
 		@Override
-		protected void onPreExecute() {
+		protected void onPreExecute()
+		{
 			// TODO Auto-generated method stub
 
 			super.onPreExecute();
-			fidsList.clear();
+			// fidsList.clear();
+			fidsObjList.clear();
 		}
 
 		@Override
-		protected Void doInBackground(String... params) {
+		protected Void doInBackground(String... params)
+		{
 			// TODO Auto-generated method stub
 
-			try {
+			try
+			{
 				JSONObject jsonobj = new JSONObject(params[0]);
 				fids = jsonobj.getJSONArray("fidsData");
 
-				for (int k = 0; k < fids.length(); k++) {
+				for (int k = 0; k < fids.length(); k++)
+				{
+
 					JSONObject w = fids.getJSONObject(k);
-					String ac = w.getString("airlineCode");
-					String fn = w.getString("flightNumber");
-					String rem = w.getString("remarks");
-					String cy = w.getString("city");
-					String ct = w.getString("currentTime");
+					FIDS fidsObj = new FIDS();
+					fidsObj.setAirlineCode(w.getString("airlineCode"));
+					fidsObj.setFlightNumber(w.getString("flightNumber"));
+					fidsObj.setRemarks(w.getString("remarks"));
+					fidsObj.setCity(w.getString("city"));
+					fidsObj.setCurrentTime(w.getString("currentTime"));
 
-					/*
-					 * Log.i("FID1", ac); Log.i("FID2", fn); Log.i("FID3", rem);
-					 * Log.i("FID4", cy); Log.i("FID5", ct);
-					 */
-					HashMap<String, String> unofid = new HashMap<String, String>();
-
-					unofid.put("ac", ac);
-					unofid.put("fn", fn);
-					unofid.put("status", rem);
-					unofid.put("city", cy);
-					unofid.put("time", ct);
-					fidsList.add(unofid);
+					fidsObjList.add(fidsObj);
 				}
 
-			} catch (JSONException e) {
+			} catch (JSONException e)
+			{
 				e.printStackTrace();
 			}
 
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result)
+		{
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			adapter.notifyDataSetChanged();
 		}
 
 	}
@@ -280,9 +288,9 @@ public class ShowFIDS extends Activity {
 	 *            the airline code the user entered
 	 * @return the completed url
 	 */
-	public String getURL(String pAirportCode, String pAirlineCode) {
-		return BASE_URL
-				+ FIDS_URL
+	public String getURL(String pAirportCode, String pAirlineCode)
+	{
+		return BASE_URL + FIDS_URL
 				+ pAirportCode
 				+ "/departures"
 				+ "?appId="
@@ -291,11 +299,15 @@ public class ShowFIDS extends Activity {
 				+ appKey
 				+ "&requestedFields="
 				+ "airlineCode%2CflightNumber%2Ccity%2CcurrentTime%2Cgate%2Cremarks"
-				+ "&includeAirlines=" + pAirlineCode + "&lateMinutes=" + "15"
-				+ "&useRunwayTimes=" + "false" + "&excludeCargoOnlyFlights="
+				+ "&includeAirlines="
+				+ pAirlineCode
+				+ "&lateMinutes="
+				+ "15"
+				+ "&useRunwayTimes="
+				+ "false"
+				+ "&excludeCargoOnlyFlights="
 				+ "false"; // + + lateMinute+"&score=3";
 
-		
 	}
 
 }

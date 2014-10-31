@@ -15,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.airportstatus.R;
+import com.airportstatus.adapters.AirlineAdapter;
 import com.airportstatus.entities.Airline;
 import com.airportstatus.models.Airlines;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class AirlinesFragment extends ListFragment
 {
@@ -57,17 +61,14 @@ public class AirlinesFragment extends ListFragment
 			public boolean handleMessage(Message msg)
 			{
 				ArrayList<Airline> al = (ArrayList<Airline>) msg.obj;
-				//Create the String array to display in the listView
-				String[] airlines = new String[al.size()];
-				for (int i = 0; i < airlines.length; i++)
-				{
-					airlines[i] = al.get(i).getName();
-				}
-				//Dismiss the dialog after loading
+				
 				dialog.dismiss();
 				
+				Crouton.showText(getActivity(), "Loading done", Style.INFO);
+				
 				// Set the list view
-				getListView().setAdapter(new ArrayAdapter<String>(getActivity(), com.airportstatus.R.layout.single_row, airlines));
+				AirlineAdapter adapter = new AirlineAdapter(getActivity(), R.layout.airlines_row, al);
+				getListView().setAdapter(adapter);
 				
 				return true;
 			}
