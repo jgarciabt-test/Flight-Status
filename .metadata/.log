@@ -2767,3 +2767,6 @@ Binding(CTRL+SHIFT+ARROW_LEFT,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.wst.sse.ui.structuredTextEditorScope,,cocoa,system)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-10-31 10:24:51.208
+!MESSAGE fragment_schedule_form.xml: Couldn't resolve resource @array/carrierFlightTypeArray

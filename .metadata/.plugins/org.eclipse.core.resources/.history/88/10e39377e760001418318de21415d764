@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Airport Status</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_status_list">Airport Status</string>
+    <string name="airportCodeHint">Enter an airport code or city&#8230;</string>
+    <string name="txtHeaderDelays">Delays</string>
+    <string name="txtHeaderSecurity">Security</string>
+    <string name="txtWeather"></string>
+    <string name="txtAirportCode"></string>
+    <string name="txtHeaderWeather">Weather</string>
+    <string name="txtTransitAnnotation">Travel times are retrieved from Google Maps</string>
+    <string name="txtSecurityDetailsButton">Screening Wait Times</string>
+    <string name="txtHeaderTransit">Travel Time</string>
+    <string name="txtHeaderTransit1">Driving</string>
+    <string name="txtHeaderTransit2">Transit</string>
+    <string name="txtTransitTime1"></string>
+    <string name="txtTransitTime2"></string>
+    <string name="title_activity_security_wait_time">SecurityWaitTimeActivity</string>
+    <string name="txtTravelTimeError">No route available</string>
+    <string name="txtRoutingError">No route available</string>
+    <string name="go">Get Airport Status</string>
+    <string name="title_activity_query">Loading</string>
+    <string name="txtWaiting">Loading&#8230;</string>
+    <string name="txtTransitMapButton">Button to navigate to Google Maps transit directions</string>
+    <string name="txtDrivingMapButton">Button to navigate to Google Maps driving directions</string>
+    <string name="txtFavoritesPlaceholder">Favorites</string>
+    <string name="txtDelaysError">Unknown</string>
+    <string name="txtDelays0">No Delays</string>
+    <string name="txtDelays1">Few Delays</string>
+    <string name="txtDelays2">Moderate Delays</string>
+    <string name="txtDelays3">High Risk of Delays</string>
+    <string name="txtDelays4">All Flights Delayed</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_landing">Airport Status</string>
+    <string name="txtErrorSavedEmpty">No airports are in your favorites yet.</string>
+    <string name="txtLoadingAirports">Finding Nearby Airports</string>
+    <string name="txtRefresh">Refresh</string>
+    <string name="txtRefreshing">Refreshing&#8230;</string>
+	<string name="arrivals">Arrivals</string>
+	<string name="departures">Departures</string>
+	<string name="active">Active</string>
+	<string name="cancel">Cancelled</string>
+	<string name="diverted">Diverted</string>
+	<string name="datasource_needed">Datasource needed</string>
+	<string name="landed">Landed</string>
+	<string name="not_operational">Not operational</string>
+	<string name="redirected">Redirected</string>
+	<string name="scheduled">Scheduled</string>
+	<string name="unknown">Unknown</string>
+	<string name="refresh">Refresh</string>
+	<string name="search">Search City</string>
+	<string name="location">Airports nearby</string>
+	<string name="no_location">You don\'t have any location provider active.</string>
+	<string name="airports_not_found">No airport found. </string>
+	
+	   <!-- Navigation Drawer Titles !-->
+    
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    
+        <!-- Button Titles !-->
+    
+    <string name="carrierStatus">Flight Status by Carrier</string>
+    <string name="airportStatus">Flight Status by Airport</string>
+    <string name="routeStatus">Flight Status by Route</string>
+    
+    <!-- Activities Titles !-->
+    
+    <string name="titleCarrier">Search Flights by Carrier</string>
+    <string name="titleRoute">Search Flights by Route</string>
+    <string name="titleAirport">Search Flights by Airport</string>
+    
+    <!-- Carrier Strings !-->
+    
+    <string name="carrierType">Carrier/Airline</string>
+    <string name="carrierTypeHint">AA (American Airlines)</string>
+    <string name="carrierFlightNum">Flight Number</string>
+    <string name="carrierFlightNumHint">100</string>
+    <string name="carrierDate">Departure Date</string>
+    <string name="carrierDateHint">DD-MM-YYYY</string>
+    <string name="carrierFlightType">Choose Flight Type</string>
+    
+    <array name="carrierFlightTypeArray">
+        <item>Departing</item>
+        <item>Arriving</item>
+    </array>
+    
+    <string name="carrierSearchBtn">Search</string>
+    <string name="carrierClearBtn">Clear</string>
+    
+    <!-- Route Strings !-->
+    
+    <string name="routeType">Departure</string>
+    <string name="routeFlyghtNum">Arrival</string>
+    <string name="routeDate">Departure Date</string>
+    <string name="routeBtn">Search</string>
+    
+    <!-- Airport Strings !-->
+    
+    <string name="airportType">Airport</string>
+    <string name="airportDate">Departure Date</string>
+    <string name="airportTime">Time Interval</string>
+    <string name="airportCarrierType">Carrier/Airline</string>
+    <string name="airportBtn">Search</string>
+    
+</resources>
