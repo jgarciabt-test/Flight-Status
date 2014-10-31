@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="21dp"
             android:text="Airport Code" />
 
@@ -28,26 +27,27 @@
             android:layout_marginTop="23dp"
             android:text="Airline Code" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/etAirportCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView1"
             android:layout_alignBottom="@+id/textView1"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
             android:layout_toRightOf="@+id/textView1"
             android:ems="10" >
 
-            <requestFocus />
-        </EditText>
+        </AutoCompleteTextView>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/etAirlineCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textView2"
             android:layout_alignBottom="@+id/textView2"
             android:layout_alignLeft="@+id/etAirportCode"
+            android:singleLine="true"
             android:ems="10" />
 
         <Button
