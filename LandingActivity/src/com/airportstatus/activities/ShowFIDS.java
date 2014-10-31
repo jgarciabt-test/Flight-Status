@@ -42,6 +42,8 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.util.Style;
 
 //haha
 public class ShowFIDS extends Activity
@@ -78,7 +80,7 @@ public class ShowFIDS extends Activity
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.fids_show);
 		setContentView(R.layout.fids_show);
-
+		
 		fidsObjList = new ArrayList<FIDS>();
 
 		// Define the AC_TV
@@ -235,6 +237,10 @@ public class ShowFIDS extends Activity
 
 			super.onPreExecute();
 			// fidsList.clear();
+			
+			SuperToast.create(ShowFIDS.this, "Files are being retrieved", SuperToast.Duration.LONG, 
+				    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
+			
 			fidsObjList.clear();
 		}
 
