@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,7 @@ import com.airportstatus.R;
 import com.airportstatus.activities.ShowFIDS;
 import com.airportstatus.entities.AirportData;
 import com.airportstatus.fragments.AirlinesFragment;
-import com.airportstatus.fragments.ScheduleFragment;
+import com.airportstatus.fragments.ScheduleTabsFragment;
 import com.airportstatus.helpers.LocationPreferences;
 import com.airportstatus.helpers.LocationResult;
 import com.airportstatus.helpers.NetworkTask;
@@ -112,7 +113,9 @@ public class FlightInformationActivity extends Activity {
 
 				if (itemValue.equals("Schedule Status")) {
 
-					ScheduleFragment scheduleFragment = new ScheduleFragment();
+					ScheduleTabsFragment scheduleFragment = new ScheduleTabsFragment();
+					
+					//ScheduleFragment scheduleFragment = new ScheduleFragment();
 
 					getFragmentManager()
 							.beginTransaction()

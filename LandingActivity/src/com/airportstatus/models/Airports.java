@@ -45,44 +45,50 @@ public class Airports
 		{
 
 			@Override
-			public void onResponse(String response)
+			public void onResponse(final String response)
 			{
-				airports = new ArrayList<AirportData>();
-				try
+				new Thread(new Runnable()
 				{
-
-					// Parse the data (airlines name) and put them in the
-					// ArrayList
-					JSONArray jarr = new JSONObject(response).getJSONArray("airports");
-					JSONObject jobj;
-					for (int i = 0; i < jarr.length(); i++)
+					public void run()
 					{
-						jobj = (JSONObject) jarr.get(i);
-						AirportData tmp = new AirportData(jobj);
-						if (tmp.getName() != null && tmp.getFsCode() != null)
-							airports.add(tmp);
-					}
-
-					// Sort by alphabetic order
-					Collections.sort(airports, new Comparator<AirportData>()
-					{
-
-						@Override
-						public int compare(AirportData lhs, AirportData rhs)
+						airports = new ArrayList<AirportData>();
+						try
 						{
-							return lhs.getName().compareTo(rhs.getName());
+							// Parse the data (airlines name) and put them in
+							// the
+							// ArrayList
+							JSONArray jarr = new JSONObject(response).getJSONArray("airports");
+							JSONObject jobj;
+							for (int i = 0; i < jarr.length(); i++)
+							{
+								jobj = (JSONObject) jarr.get(i);
+								AirportData tmp = new AirportData(jobj);
+								if (tmp.getName() != null && tmp.getFsCode() != null)
+									airports.add(tmp);
+							}
+
+							// Sort by alphabetic order
+							Collections.sort(airports, new Comparator<AirportData>()
+							{
+
+								@Override
+								public int compare(AirportData lhs, AirportData rhs)
+								{
+									return lhs.getName().compareTo(rhs.getName());
+								}
+
+							});
+
+							sendMessage(callback);
+
+						} catch (JSONException e)
+						{
+							Log.e("AirportDatas", "error on parsing the JSON: " + e.getMessage());
+							Log.e("AirportDatas", "error on parsing the JSON: " + response);
+							e.printStackTrace();
 						}
-
-					});
-					
-					sendMessage(callback);
-
-				} catch (JSONException e)
-				{
-					Log.e("AirportDatas", "error on parsing the JSON: " + e.getMessage());
-					Log.e("AirportDatas", "error on parsing the JSON: " + response);
-					e.printStackTrace();
-				}
+					}
+				}).start();
 
 			}
 		}, new ErrorListener()
@@ -91,7 +97,7 @@ public class Airports
 			@Override
 			public void onErrorResponse(VolleyError error)
 			{
-				Toast.makeText(context, "Error: "+error.getMessage(), Toast.LENGTH_LONG);
+				Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG);
 			}
 		}));
 	}
@@ -103,7 +109,8 @@ public class Airports
 	 * @param context
 	 *            The app context, used to download with Volley
 	 * @param callback
-	 *            Send a message that contain as message.obj an ArrayList<{@link Airports}>
+	 *            Send a message that contain as message.obj an ArrayList<
+	 *            {@link Airports}>
 	 * */
 	public static void getAirportDatas(Context context, Handler callback)
 	{

@@ -2,12 +2,12 @@ package com.airportstatus.fragments;
 
 import java.util.ArrayList;
 
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.airportstatus.R;
 import com.airportstatus.interfaces.FlightStatsClient;
@@ -20,7 +20,7 @@ public class ViewRouteScheduleFlightsFragment extends Fragment {
 	private ArrayList<ScheduleRouteModel> routeList = null;
 	private ScheduleFlightRouteAdapter adapter = null;
 
-	private ListView routeListview = null;
+	private StickyListHeadersListView routeListview = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +41,8 @@ public class ViewRouteScheduleFlightsFragment extends Fragment {
 	}
 
 	private void initialize() {
-		routeListview = (ListView) parentView.findViewById(R.id.routeList);
+		
+		routeListview = (StickyListHeadersListView) parentView.findViewById(R.id.routeList);
 	}
 
 }
