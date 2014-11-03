@@ -44,7 +44,7 @@ import com.github.johnpersano.supertoasts.SuperToast;
 import com.github.johnpersano.supertoasts.util.Style;
 import com.todddavies.components.progressbar.ProgressWheel;
 
-//haha
+
 public class ShowFIDS extends Activity
 {
 
@@ -82,7 +82,7 @@ public class ShowFIDS extends Activity
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.fids_show);
 		setContentView(R.layout.fids_show);
-
+		
 		fidsObjList = new ArrayList<FIDS>();
 
 		// Define the AC_TV
@@ -248,7 +248,10 @@ public class ShowFIDS extends Activity
 		@Override
 		protected void onPreExecute()
 		{
-			super.onPreExecute();	
+
+
+			super.onPreExecute();
+			
 			fidsObjList.clear();
 		}
 
