@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/com.visualdenim.schooltraq"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.todddavies.components.progressbar.ProgressWheel
+        android:id="@+id/progressBarTwo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        ProgressWheel2:barColor="#339BB9"
+        ProgressWheel2:barLength="60dp"
+        ProgressWheel2:barWidth="25dp"
+        ProgressWheel2:rimColor="#44000000"
+        ProgressWheel2:rimWidth="25dp"
+        ProgressWheel2:spinSpeed="3dp"
+        ProgressWheel2:textColor="#222222"
+        ProgressWheel2:textSize="14sp" />
+
+</LinearLayout>

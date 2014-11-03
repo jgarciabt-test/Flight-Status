@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,8 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.airportstatus.R;
 import com.airportstatus.adapters.FIDSAdapter;
@@ -42,6 +40,9 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.util.Style;
+import com.todddavies.components.progressbar.ProgressWheel;
 
 //haha
 public class ShowFIDS extends Activity
@@ -64,6 +65,9 @@ public class ShowFIDS extends Activity
 	ArrayList<FIDS> fidsObjList;
 	FIDSAdapter adapter;
 	JSONArray fids = null;
+	TextView msgLoading;
+	
+	ProgressWheel pw;
 
 	/*
 	 * private static RequestParams makeParams() { RequestParams params = new
@@ -84,9 +88,12 @@ public class ShowFIDS extends Activity
 		// Define the AC_TV
 		etAirportCode = (AutoCompleteTextView) findViewById(R.id.etAirportCode);
 		etAirlineCode = (AutoCompleteTextView) findViewById(R.id.etAirlineCode);
+		msgLoading = (TextView) findViewById(R.id.txt_msg_loading);
 
-		final ProgressDialog dialog = ProgressDialog.show(ShowFIDS.this, "Loading", "Loading the airports");
-
+		//final ProgressDialog dialog = ProgressDialog.show(ShowFIDS.this, "Loading", "Loading the airports");
+		pw = (ProgressWheel) findViewById(R.id.progressBar);
+		msgLoading.setText("Loading Airports");
+		pw.spin();
 		// Load the airports
 		Airports.getAirportDatas(getApplicationContext(), new Handler(new Callback()
 		{
@@ -102,14 +109,16 @@ public class ShowFIDS extends Activity
 				{
 					values[i] = al.get(i).getName() + " - " + al.get(i).getIcaoCode();
 				}
-				// Dismiss the dialog after loading
-				dialog.dismiss();
 
-				// Set the list view
+				// Set the list view and Dismiss the dialog after loading
 				etAirportCode.setAdapter(new ArrayAdapter<String>(ShowFIDS.this, com.airportstatus.R.layout.single_row_bigger, values));
+				pw.stopSpinning();
+				pw.setVisibility(View.GONE);
+				msgLoading.setText("");
 
-				final ProgressDialog dialog2 = ProgressDialog.show(ShowFIDS.this, "Loading", "Loading the airlines");
-
+				pw.setVisibility(View.VISIBLE);
+				pw.spin();
+				msgLoading.setText("Loading Airlines");
 				// Load the airlines
 				Airlines.getAirlines(ShowFIDS.this, new Handler(new Callback()
 				{
@@ -127,7 +136,9 @@ public class ShowFIDS extends Activity
 							airlines[i] = al.get(i).getName() + " - " + al.get(i).getIcaoCode();
 						}
 						// Dismiss the dialog after loading
-						dialog2.dismiss();
+						pw.stopSpinning();
+						pw.setVisibility(View.GONE);
+						msgLoading.setText("");
 
 						// Set the list view
 						etAirlineCode.setAdapter(new ArrayAdapter<String>(ShowFIDS.this,
@@ -158,11 +169,13 @@ public class ShowFIDS extends Activity
 				RequestQueue rq = Volley.newRequestQueue(ShowFIDS.this);
 				urlAirpC = etAirportCode.getText().toString();
 				urlAirlC = etAirlineCode.getText().toString();
+				pw.spin();
 
 				// < 4 because " - ".length() + 1
 				if (urlAirlC.length() < 4 || urlAirpC.length() < 4)
 				{
-					Toast.makeText(getApplicationContext(), "Invalid airport or airline name", Toast.LENGTH_SHORT).show();
+					SuperToast.create(ShowFIDS.this, "Invalid airport or airline name", SuperToast.Duration.LONG, 
+						    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
 					return;
 				}
 				urlAirpC = urlAirpC.substring(urlAirpC.indexOf(" - ") + 3);
@@ -172,11 +185,14 @@ public class ShowFIDS extends Activity
 				// if the codes are not correct
 				if (!urlAirlC.matches("^[A-Z]+$") || !urlAirpC.matches("^[A-Z]+$"))
 				{
-					Toast.makeText(getApplicationContext(), "Invalid airport or airline name", Toast.LENGTH_SHORT).show();
+					SuperToast.create(ShowFIDS.this, "Invalid airport or airline name", SuperToast.Duration.LONG, 
+						    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
 					return;
 				}
 				final String url = getURL(urlAirpC, urlAirlC);
-
+				pw.setVisibility(View.VISIBLE);
+				pw.spin();
+				msgLoading.setText("Loading...");
 				rq.add(new StringRequest(url, new Listener<String>()
 				{
 
@@ -188,11 +204,14 @@ public class ShowFIDS extends Activity
 						if (response != null)
 						{
 							new getFlights().execute(response);
+							
 						} else
 						{
 							Log.i("NAHWORK", "couldnt get data");
 						}
-
+						pw.stopSpinning();
+						pw.setVisibility(View.GONE);
+						msgLoading.setText("");
 					}
 				}, new ErrorListener()
 				{
@@ -200,19 +219,17 @@ public class ShowFIDS extends Activity
 					@Override
 					public void onErrorResponse(VolleyError error)
 					{
-						// TODO
-						// Handle your error
-						Toast.makeText(getApplicationContext(), "HTTP Error", Toast.LENGTH_SHORT).show();
+						pw.stopSpinning();
+						pw.setVisibility(View.GONE);
+						msgLoading.setText("");
+						SuperToast.create(ShowFIDS.this, "HTTP error...", SuperToast.Duration.LONG, 
+							    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
 
 					}
 				}));
 
 			}
 		});
-
-		String[] from = { "ac", "fn", "status", "city", "time" };
-
-		int[] to = { R.id.tvFIDSAC, R.id.tvFIDSFN, R.id.tvFIDSStatus, R.id.tvFIDSCity, R.id.tvFIDSTime };
 
 		this.adapter = new FIDSAdapter(getApplicationContext(), fidsObjList);
 
@@ -231,17 +248,13 @@ public class ShowFIDS extends Activity
 		@Override
 		protected void onPreExecute()
 		{
-			// TODO Auto-generated method stub
-
-			super.onPreExecute();
-			// fidsList.clear();
+			super.onPreExecute();	
 			fidsObjList.clear();
 		}
 
 		@Override
 		protected Void doInBackground(String... params)
 		{
-			// TODO Auto-generated method stub
 
 			try
 			{
@@ -273,11 +286,15 @@ public class ShowFIDS extends Activity
 		@Override
 		protected void onPostExecute(Void result)
 		{
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			adapter.notifyDataSetChanged();
 		}
 
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			super.onProgressUpdate(values);
+		}
+		
 	}
 
 	/**

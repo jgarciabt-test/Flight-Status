@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvLabelAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="34dp"
+        android:text="Airline Code" />
+
+    <TextView
+        android:id="@+id/tvFIDSAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="66dp"
+        android:layout_toRightOf="@+id/tvLabelAC"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLabelFN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvLabelAC"
+        android:layout_below="@+id/tvLabelAC"
+        android:text="FlightNumber" />
+
+    <TextView
+        android:id="@+id/tvFIDSFN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvLabelFN"
+        android:layout_alignBottom="@+id/tvLabelFN"
+        android:layout_alignLeft="@+id/tvFIDSAC"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLabelStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvLabelFN"
+        android:layout_below="@+id/tvLabelFN"
+        android:text="Stats" />
+
+    <TextView
+        android:id="@+id/tvFIDSStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvLabelStatus"
+        android:layout_alignBottom="@+id/tvLabelStatus"
+        android:layout_alignLeft="@+id/tvFIDSFN"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLabelCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvLabelStatus"
+        android:layout_below="@+id/tvLabelStatus"
+        android:text="City" />
+
+    <TextView
+        android:id="@+id/tvFIDSCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvFIDSStatus"
+        android:layout_below="@+id/tvFIDSStatus"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLabelTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvLabelCity"
+        android:layout_below="@+id/tvLabelCity"
+        android:text="Time" />
+
+    <TextView
+        android:id="@+id/tvFIDSTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvLabelTime"
+        android:layout_alignBottom="@+id/tvLabelTime"
+        android:layout_alignLeft="@+id/tvFIDSCity"
+        android:text="TextView" />
+    
+</RelativeLayout>

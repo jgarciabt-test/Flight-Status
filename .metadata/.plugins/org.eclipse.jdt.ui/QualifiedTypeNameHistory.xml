@@ -8,10 +8,15 @@
 <fullyQualifiedTypeName name="com.airportstatus.R"/>
 <fullyQualifiedTypeName name="se.emilsjolander.stickylistheaders.StickyListHeadersListView"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.airportstatus.interfaces.FlightStatsClient"/>
 <fullyQualifiedTypeName name="com.airportstatus.ui.adapters.FlightAdapter"/>
 <fullyQualifiedTypeName name="com.airportstatus.entities.Rating"/>
 <fullyQualifiedTypeName name="android.text.format.DateFormat"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="com.airportstatus.ui.activities.FlightInformationActivity"/>
+<fullyQualifiedTypeName name="com.airportstatus.activities.ShowFIDS"/>
+<fullyQualifiedTypeName name="com.airportstatus.R.layout"/>
 </qualifiedTypeNameHistroy>

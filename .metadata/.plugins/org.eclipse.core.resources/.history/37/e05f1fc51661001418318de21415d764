@@ -1,0 +1,59 @@
+package com.airportstatus.entities;
+
+public class FIDS {
+
+	private String airlineCode;
+	private String flightNumber;
+	private String remarks;
+	private String city;
+	private String currentTime;
+	
+	public FIDS(){
+		
+	}
+	
+	
+
+	public String getAirlineCode() {
+		return airlineCode;
+	}
+
+	public void setAirlineCode(String airlineCode) {
+		this.airlineCode = airlineCode;
+	}
+
+	public String getFlightNumber() {
+		return flightNumber;
+	}
+
+	public void setFlightNumber(String flightNumber) {
+		this.flightNumber = flightNumber;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(String currentTime) {
+		this.currentTime = currentTime;
+	}
+	
+	
+	
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="ProgressWheel2">
+        <attr name="text2" format="string" />
+        <attr name="textColor2" format="color" />
+        <attr name="textSize2" format="dimension" />
+        <attr name="barColor2" format="color" />
+        <attr name="rimColor2" format="color" />
+        <attr name="rimWidth2" format="dimension" />
+        <attr name="spinSpeed2" format="dimension" />
+        <attr name="delayMillis2" format="integer" />
+        <attr name="circleColor2" format="color" />
+        <attr name="radius2" format="dimension" />
+        <attr name="barWidth2" format="dimension" />
+        <attr name="barLength2" format="dimension" />
+        <attr name="contourColor2" format="color"/>
+        <attr name="contourSize2" format="dimension"/>
+    </declare-styleable>   
+</resources>
