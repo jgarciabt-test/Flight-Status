@@ -44,7 +44,6 @@ import com.github.johnpersano.supertoasts.SuperToast;
 import com.github.johnpersano.supertoasts.util.Style;
 import com.todddavies.components.progressbar.ProgressWheel;
 
-
 public class ShowFIDS extends Activity
 {
 
@@ -61,12 +60,14 @@ public class ShowFIDS extends Activity
 	private static final String appId = "dab73acb";
 	private static final String appKey = "c6a876803a6fe7ed2b9f2eccf25415a0";
 
+	public static final int UPDATE_PROGRESS = 0x56AF;
+
 	ArrayList<HashMap<String, String>> fidsList;
 	ArrayList<FIDS> fidsObjList;
 	FIDSAdapter adapter;
 	JSONArray fids = null;
 	TextView msgLoading;
-	
+
 	ProgressWheel pw;
 
 	/*
@@ -78,11 +79,10 @@ public class ShowFIDS extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		// setContentView(R.layout.fids_show);
 		setContentView(R.layout.fids_show);
-		
+
 		fidsObjList = new ArrayList<FIDS>();
 
 		// Define the AC_TV
@@ -90,9 +90,10 @@ public class ShowFIDS extends Activity
 		etAirlineCode = (AutoCompleteTextView) findViewById(R.id.etAirlineCode);
 		msgLoading = (TextView) findViewById(R.id.txt_msg_loading);
 
-		//final ProgressDialog dialog = ProgressDialog.show(ShowFIDS.this, "Loading", "Loading the airports");
+		// final ProgressDialog dialog = ProgressDialog.show(ShowFIDS.this,
+		// "Loading", "Loading the airports");
 		pw = (ProgressWheel) findViewById(R.id.progressBar);
-		msgLoading.setText("Loading Airports");
+		msgLoading.setText("Downloading Airports... ");
 		pw.spin();
 		// Load the airports
 		Airports.getAirportDatas(getApplicationContext(), new Handler(new Callback()
@@ -102,6 +103,12 @@ public class ShowFIDS extends Activity
 			@Override
 			public boolean handleMessage(Message msg)
 			{
+				if (msg.what == UPDATE_PROGRESS)
+				{
+					msgLoading.setText("Loading Airports:\n" + msg.arg1 + "/" + msg.arg2);
+					return true;
+				}
+				
 				ArrayList<AirportData> al = (ArrayList<AirportData>) msg.obj;
 				// Create the String array to display in the listView
 				String[] values = new String[al.size()];
@@ -118,7 +125,7 @@ public class ShowFIDS extends Activity
 
 				pw.setVisibility(View.VISIBLE);
 				pw.spin();
-				msgLoading.setText("Loading Airlines");
+				msgLoading.setText("Downloading Airlines");
 				// Load the airlines
 				Airlines.getAirlines(ShowFIDS.this, new Handler(new Callback()
 				{
@@ -127,7 +134,11 @@ public class ShowFIDS extends Activity
 					@Override
 					public boolean handleMessage(Message msg)
 					{
-
+						if (msg.what == UPDATE_PROGRESS)
+						{
+							msgLoading.setText("Loading Airlines:\n" + msg.arg1 + "/" + msg.arg2);
+							return true;
+						}
 						ArrayList<Airline> al = (ArrayList<Airline>) msg.obj;
 						// Create the String array to display in the listView
 						String[] airlines = new String[al.size()];
@@ -174,8 +185,10 @@ public class ShowFIDS extends Activity
 				// < 4 because " - ".length() + 1
 				if (urlAirlC.length() < 4 || urlAirpC.length() < 4)
 				{
-					SuperToast.create(ShowFIDS.this, "Invalid airport or airline name", SuperToast.Duration.LONG, 
-						    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
+					SuperToast.create(ShowFIDS.this,
+							"Invalid airport or airline name",
+							SuperToast.Duration.LONG,
+							Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
 					return;
 				}
 				urlAirpC = urlAirpC.substring(urlAirpC.indexOf(" - ") + 3);
@@ -185,8 +198,10 @@ public class ShowFIDS extends Activity
 				// if the codes are not correct
 				if (!urlAirlC.matches("^[A-Z]+$") || !urlAirpC.matches("^[A-Z]+$"))
 				{
-					SuperToast.create(ShowFIDS.this, "Invalid airport or airline name", SuperToast.Duration.LONG, 
-						    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
+					SuperToast.create(ShowFIDS.this,
+							"Invalid airport or airline name",
+							SuperToast.Duration.LONG,
+							Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
 					return;
 				}
 				final String url = getURL(urlAirpC, urlAirlC);
@@ -204,7 +219,7 @@ public class ShowFIDS extends Activity
 						if (response != null)
 						{
 							new getFlights().execute(response);
-							
+
 						} else
 						{
 							Log.i("NAHWORK", "couldnt get data");
@@ -222,8 +237,10 @@ public class ShowFIDS extends Activity
 						pw.stopSpinning();
 						pw.setVisibility(View.GONE);
 						msgLoading.setText("");
-						SuperToast.create(ShowFIDS.this, "HTTP error...", SuperToast.Duration.LONG, 
-							    Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
+						SuperToast.create(ShowFIDS.this,
+								"HTTP error...",
+								SuperToast.Duration.LONG,
+								Style.getStyle(Style.ORANGE, SuperToast.Animations.FLYIN)).show();
 
 					}
 				}));
@@ -249,9 +266,8 @@ public class ShowFIDS extends Activity
 		protected void onPreExecute()
 		{
 
-
 			super.onPreExecute();
-			
+
 			fidsObjList.clear();
 		}
 
@@ -294,10 +310,11 @@ public class ShowFIDS extends Activity
 		}
 
 		@Override
-		protected void onProgressUpdate(Void... values) {
+		protected void onProgressUpdate(Void... values)
+		{
 			super.onProgressUpdate(values);
 		}
-		
+
 	}
 
 	/**

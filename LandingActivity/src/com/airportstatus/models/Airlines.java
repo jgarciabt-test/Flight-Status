@@ -16,6 +16,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.airportstatus.activities.ShowFIDS;
 import com.airportstatus.entities.Airline;
 import com.airportstatus.interfaces.FlightStatsClient;
 import com.android.volley.RequestQueue;
@@ -57,8 +58,11 @@ public class Airlines
 					// ArrayList
 					JSONArray jarr = new JSONObject(response).getJSONArray("airlines");
 					JSONObject jobj;
+
 					for (int i = 0; i < jarr.length(); i++)
 					{
+						sendUpdateMessage(callback, i, jarr.length());
+						
 						jobj = (JSONObject) jarr.get(i);
 						Airline tmp = new Airline(jobj);
 						if (tmp.getName() != null && tmp.getFsCode() != null)
@@ -76,7 +80,7 @@ public class Airlines
 						}
 
 					});
-					
+
 					sendMessage(callback);
 
 				} catch (JSONException e)
@@ -92,7 +96,7 @@ public class Airlines
 			@Override
 			public void onErrorResponse(VolleyError error)
 			{
-				Toast.makeText(context, "Error: "+error.getMessage(), Toast.LENGTH_LONG);
+				Toast.makeText(context, "Error: " + error.getMessage(), Toast.LENGTH_LONG);
 			}
 		}));
 	}
@@ -104,7 +108,8 @@ public class Airlines
 	 * @param context
 	 *            The app context, used to download with Volley
 	 * @param callback
-	 *            Send a message that contain as message.obj an ArrayList<{@link Airlines}>
+	 *            Send a message that contain as message.obj an ArrayList<
+	 *            {@link Airlines}>
 	 * */
 	public static void getAirlines(Context context, Handler callback)
 	{
@@ -115,6 +120,19 @@ public class Airlines
 		{
 			sendMessage(callback);
 		}
+	}
+
+	/**
+	 * Send a message to the Handler
+	 * It's used to update the UI with the progress
+	 * */
+	private static void sendUpdateMessage(Handler callback, int progress, int total)
+	{
+		Message message = new Message();
+		message.what = ShowFIDS.UPDATE_PROGRESS;
+		message.arg1 = progress;
+		message.arg2 = total;
+		callback.sendMessage(message);
 	}
 
 	private static void sendMessage(Handler callback)

@@ -14,6 +14,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.airportstatus.activities.ShowFIDS;
 import com.airportstatus.entities.AirportData;
 import com.airportstatus.interfaces.FlightStatsClient;
 import com.android.volley.RequestQueue;
@@ -61,6 +62,7 @@ public class Airports
 							JSONObject jobj;
 							for (int i = 0; i < jarr.length(); i++)
 							{
+								sendUpdateMessage(callback, i, jarr.length());
 								jobj = (JSONObject) jarr.get(i);
 								AirportData tmp = new AirportData(jobj);
 								if (tmp.getName() != null && tmp.getFsCode() != null)
@@ -121,6 +123,19 @@ public class Airports
 		{
 			sendMessage(callback);
 		}
+	}
+
+	/**
+	 * Send a message to the Handler It's used to update the UI with the
+	 * progress
+	 * */
+	private static void sendUpdateMessage(Handler callback, int progress, int total)
+	{
+		Message message = new Message();
+		message.what = ShowFIDS.UPDATE_PROGRESS;
+		message.arg1 = progress;
+		message.arg2 = total;
+		callback.sendMessage(message);
 	}
 
 	private static void sendMessage(Handler callback)
