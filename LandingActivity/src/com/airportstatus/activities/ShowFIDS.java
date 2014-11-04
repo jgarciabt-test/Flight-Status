@@ -87,7 +87,9 @@ public class ShowFIDS extends Activity
 
 		// Define the AC_TV
 		etAirportCode = (AutoCompleteTextView) findViewById(R.id.etAirportCode);
+		etAirportCode.setThreshold(1);
 		etAirlineCode = (AutoCompleteTextView) findViewById(R.id.etAirlineCode);
+		etAirlineCode.setThreshold(1);
 		msgLoading = (TextView) findViewById(R.id.txt_msg_loading);
 
 		// final ProgressDialog dialog = ProgressDialog.show(ShowFIDS.this,
@@ -155,7 +157,6 @@ public class ShowFIDS extends Activity
 						etAirlineCode.setAdapter(new ArrayAdapter<String>(ShowFIDS.this,
 								com.airportstatus.R.layout.single_row_bigger,
 								airlines));
-
 						return true;
 					}
 				}));
