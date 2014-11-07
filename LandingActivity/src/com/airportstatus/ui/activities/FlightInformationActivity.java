@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -72,7 +73,7 @@ public class FlightInformationActivity extends Activity {
 		drawerListView = (ListView) findViewById(R.id.left_drawer);
 
 		String[] values = new String[] { "Airline Names", "Airport Status",
-				"Schedule Status" , "FIDS"};
+				"Schedule Status", "FIDS" };
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, android.R.id.text1, values);
@@ -110,12 +111,21 @@ public class FlightInformationActivity extends Activity {
 						.getItemAtPosition(position);
 
 				getActionBar().setTitle(itemValue);
+				try {
+
+					getActionBar().removeAllTabs();
+					getActionBar().setNavigationMode(
+							ActionBar.NAVIGATION_MODE_STANDARD);
+				} catch (Exception e) {
+
+				}
 
 				if (itemValue.equals("Schedule Status")) {
 
 					ScheduleTabsFragment scheduleFragment = new ScheduleTabsFragment();
-					
-					//ScheduleFragment scheduleFragment = new ScheduleFragment();
+
+					// ScheduleFragment scheduleFragment = new
+					// ScheduleFragment();
 
 					getFragmentManager()
 							.beginTransaction()
@@ -136,8 +146,9 @@ public class FlightInformationActivity extends Activity {
 				else if (itemValue.equals("Airport Status")) {
 
 					airportStatus();
-				} else if (itemValue.equals("FIDS")){
-					Intent i = new Intent(FlightInformationActivity.this, ShowFIDS.class);
+				} else if (itemValue.equals("FIDS")) {
+					Intent i = new Intent(FlightInformationActivity.this,
+							ShowFIDS.class);
 					startActivity(i);
 				}
 
@@ -208,6 +219,14 @@ public class FlightInformationActivity extends Activity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.itm_location_search:
+			try {
+
+				getActionBar().removeAllTabs();
+				getActionBar().setNavigationMode(
+						ActionBar.NAVIGATION_MODE_STANDARD);
+			} catch (Exception e) {
+
+			}
 			airportStatus();
 			break;
 		}
